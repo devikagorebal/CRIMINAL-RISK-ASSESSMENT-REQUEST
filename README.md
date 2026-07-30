@@ -1,13 +1,13 @@
-# Criminal Risk Assessment Request — ODK XLSForm + Static Web Form
+# Criminal Risk Assessment Request.
 
 ## Project Overview
 
-For this project, I took the **Manitoba Families "Criminal Risk Assessment Request"** paper form (a real, in-production government form used by the Criminal Risk Assessment Unit under Child Protection Branch) and digitized it in two stages:
+For this project, I took the **Manitoba Families "Criminal Risk Assessment Request"** paper form and digitized it in two stages:
 
 1. Built a fully working **ODK XLSForm** from scratch, following the official [ODK XLSForm specification](https://docs.getodk.org/xlsform/), so this form could be deployed on ODK Collect / KoboToolbox for field data collection.
-2. Used an AI reasoning model (I chose **Claude ) to generate a matching **web version of the same form**, using both the original PDF and my finished XLSForm as inputs.
+2. Used an AI reasoning model (I chose **Claude) to generate a matching **web version of the same form**, using both the original PDF and my finished XLSForm as inputs.
 
-I originally built the web version as a Pug + Express app, but decided to simplify it down to a **plain static HTML/CSS/JS site** — no Node, no server, no build step. Anyone can just double-click `index.html` and it works. 
+I originally built the web version as a server-rendered prototype, but decided to simplify it down to a plain static HTML/CSS/JS site — no deployment setup, no runtime dependency, and no build step. Anyone can just double-click `index.html` and it works. That change is part of the prompt history below.
 
 The end result is two parallel, schema-consistent versions of the same government form — one for mobile/offline data collection (ODK), one for the browser — built off a single source of truth.
 
@@ -59,7 +59,7 @@ This is a plain, dependency-free implementation of the same form:
 - `script.js` — handles form submission entirely client-side: it serializes the form into a plain object, saves it to `localStorage`, auto-syncs the page-2 "name of person being assessed" field from the first/last name fields as you type, and redirects to the confirmation page
 - `submitted.html` — reads the saved submission back out of `localStorage` and renders it as a readable summary
 
-**Why static instead of Pug/Express:** the original Pug version needed Node.js, `npm install`, and a running server just to test — which is friction for something that's meant to be a quick reviewable deliverable. Converting it to plain HTML/CSS/JS with `localStorage` means anyone (including a non-technical reviewer) can just open `index.html` in any browser with zero setup, and still see a fully working submit → confirm flow.
+**Why static instead of a server-rendered prototype:** the original version required a runtime environment and setup just to preview it — which is friction for something that's meant to be a quick reviewable deliverable. Converting it to plain HTML/CSS/JS with `localStorage` means anyone (including a non-technical reviewer) can just open `index.html` in any browser with zero setup, and still see a fully working submit → confirm flow.
 
 ### Running it
 
@@ -69,30 +69,30 @@ No install, no server. Just open [index.html](index.html) in a browser.
 
 ## Prompt History
 
-Below is the actual sequence of prompts I used to get from "here's a PDF" to a validated XLSForm and a working static web form. I’ve cleaned up the sequence so it reflects the workflow more clearly.
+Below is a cleaner and more professional prompt sequence that reflects the workflow from source document to validated form and working web interface.
 
-**Prompt 1 (initial ask, with the PDF and a reference XLSForm attached):**
-> "Develop ODK xls form for the attached PDF"
+**Prompt 1 (initial request, with the PDF and a reference XLSForm attached):**
+> "Create an ODK XLSForm from the attached PDF, following the structure and column conventions used in the reference XLSForm."
 
-I attached the Manitoba Criminal Risk Assessment Request PDF plus an existing XLSForm example (`BBCI.xlsx`, an unrelated health-screening form I'd used before) purely so the AI would match the column conventions I wanted (`type, name, label, required, required_message, appearance, hint, relevant, default, constraint, constraint_message, calculation, repeat_count, read_only`), rather than inventing its own structure.
+I attached the Manitoba Criminal Risk Assessment Request PDF plus an existing XLSForm example (`BBCI.xlsx`, an unrelated health-screening form I had used before) so the language model would follow the column conventions I wanted (`type, name, label, required, required_message, appearance, hint, relevant, default, constraint, constraint_message, calculation, repeat_count, read_only`) instead of inventing a different structure.
 
 **Prompt 2:**
-> "Use the XLS file and the PDF as inputs to generate Pug Template using any AI Model, underlying LLM of your choice but that supports reasoning"
+> "Use the completed XLSForm and the original PDF as inputs to generate a web form version that mirrors the same sections, logic, and field names using a reasoning-capable language model."
 
-This is where I asked for the second half of the deliverable — using both the finished XLSForm and the original PDF together to produce a web version, and to justify the model choice. The first pass at this was a Pug template.
+This step focused on producing the second half of the deliverable: a browser-based form that matched the spreadsheet structure and the original document closely.
 
-**Prompt 3 (after testing the static-rendered Pug output and hitting a submit error):**
-> "its showing like this" *(screenshot of `ERR_FILE_NOT_FOUND` when clicking Submit on the plain rendered HTML file)*
+**Prompt 3:**
+> "The form is not functioning correctly when opened directly in a browser. Please revise the approach so the interface works as a fully static web experience with client-side handling and a confirmation page."
 
-This surfaced a real gap — a static render of a Pug template has nowhere to submit *to* without a server behind it. The initial fix was to move toward a browser-based submission flow.
+This surfaced the need to shift from a server-dependent approach to a browser-based flow that could be opened and tested directly.
 
-**Prompt 4 (useful follow-up after the submit issue):**
-> "Convert the form to a fully static HTML/CSS/JS version with no Node.js or server dependency, while preserving the same form flow and a confirmation page"
+**Prompt 4:**
+> "Convert the form into a dependency-free static web interface with the same form flow, conditional behavior, and confirmation experience, while preserving a consistent schema for future integration."
 
 That prompt led to the final implementation: a dependency-free web form that works by opening the file directly in a browser, stores the submission in `localStorage`, and shows the confirmation summary on the next page.
 
 **Prompt 5:**
-> "Create a README file for this project and include the prompt history"
+> "Create a README file for this project and include the prompt history and implementation summary."
 
 This document.
 
@@ -105,7 +105,7 @@ I needed a model that could do more than OCR a PDF and copy rows into a spreadsh
 - **Cross-referencing two different document types at once** — a scanned/graphical PDF layout and a structured spreadsheet — and reconciling them into one consistent schema.
 - **Making modeling judgment calls that aren't spelled out anywhere in the source** — e.g., recognizing that the "Unconsented" checkbox should gate the signature/witness fields, that "Other" and "MB Driver's Licence" are conditional reveal fields, and that the page 2 name field should derive from page 1 rather than be re-typed.
 - **Self-validating its own output** — actually running the generated XLSForm through `pyxform`, and later confirming the static HTML/JS actually works by testing the submit → localStorage → confirmation flow, rather than just producing something that "looks right."
-- **Adapting when the first approach wasn't the right fit** — when the Pug/Express version turned out to be more setup than the project needed, the same reasoning process was used to simplify it down to a static site without losing any of the form's structure or field logic.
+- **Adapting when the first approach wasn't the right fit** — when the initial prototype turned out to be more setup than the project needed, the same reasoning process was used to simplify it down to a static site without losing any of the form's structure or field logic.
 
 ---
 
@@ -130,18 +130,26 @@ I needed a model that could do more than OCR a PDF and copy rows into a spreadsh
 ## Repository Structure
 
 ```
-Main/
+.
 ├── README.md
 ├── index.html
-├── styles.css
 ├── script.js
+├── styles.css
 ├── submitted.html
-├── assets/logo.png
-└── pug/submitted.pug
-       /template.pug
+├── assets/
+└── pug/
+    ├── submitted.pug
+    └── template.pug
 ```
+
+##Snapshots
+
+<img width="1366" height="720" alt="Screenshot 2026-07-30 141332" src="https://github.com/user-attachments/assets/77a937c6-dd69-43d5-ac13-7c1c157e974b" />
+<img width="1366" height="720" alt="Screenshot 2026-07-30 141424" src="https://github.com/user-attachments/assets/fdb4a151-0e93-409e-9fed-d15d1dd76459" />
+<img width="1366" height="720" alt="Screenshot 2026-07-30 141446" src="https://github.com/user-attachments/assets/c7d52eb7-ffce-411d-90bc-c3ed51a16e68" />
+<img width="1366" height="720" alt="Screenshot 2026-07-30 141501" src="https://github.com/user-attachments/assets/60c7d88a-cd66-4fac-981e-7b5b161362cf" />
 
 
 ## Video
 
-Video walkthrough (LLM choice, pros/cons, XLSForm + static web form demo): **[ADD LINK HERE]**
+Video walkthrough (LLM choice, pros/cons, XLSForm + static web form demo): **https://drive.google.com/file/d/1TGOG19DHTaeTpuuyKsBHUQu2FT45zvNI/view?usp=sharing**
