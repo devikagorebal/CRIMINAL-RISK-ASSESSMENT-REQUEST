@@ -142,7 +142,11 @@ I needed a model that could do more than OCR a PDF and copy rows into a spreadsh
     └── template.pug
 ```
 
-##Snapshots
+## Video
+
+Video walkthrough (LLM choice, pros/cons, XLSForm + static web form demo): **https://drive.google.com/file/d/1TGOG19DHTaeTpuuyKsBHUQu2FT45zvNI/view?usp=sharing**
+
+## Snapshots
 
 <img width="1366" height="720" alt="Screenshot 2026-07-30 141332" src="https://github.com/user-attachments/assets/77a937c6-dd69-43d5-ac13-7c1c157e974b" />
 <img width="1366" height="720" alt="Screenshot 2026-07-30 141424" src="https://github.com/user-attachments/assets/fdb4a151-0e93-409e-9fed-d15d1dd76459" />
@@ -150,6 +154,4 @@ I needed a model that could do more than OCR a PDF and copy rows into a spreadsh
 <img width="1366" height="720" alt="Screenshot 2026-07-30 141501" src="https://github.com/user-attachments/assets/60c7d88a-cd66-4fac-981e-7b5b161362cf" />
 
 
-## Video
 
-Video walkthrough (LLM choice, pros/cons, XLSForm + static web form demo): **https://drive.google.com/file/d/1TGOG19DHTaeTpuuyKsBHUQu2FT45zvNI/view?usp=sharing**
