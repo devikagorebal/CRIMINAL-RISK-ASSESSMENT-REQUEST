@@ -144,7 +144,7 @@ I needed a model that could do more than OCR a PDF and copy rows into a spreadsh
 
 ## Video
 
-Video walkthrough (LLM choice, pros/cons, XLSForm + static web form demo): **https://drive.google.com/file/d/1TGOG19DHTaeTpuuyKsBHUQu2FT45zvNI/view?usp=sharing**
+Video walkthrough: **https://drive.google.com/file/d/1TGOG19DHTaeTpuuyKsBHUQu2FT45zvNI/view?usp=sharing**
 
 ## Snapshots
 
