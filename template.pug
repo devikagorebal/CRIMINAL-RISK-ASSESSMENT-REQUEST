@@ -1,0 +1,357 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title Criminal Risk Assessment Request
+    style.
+      * { box-sizing: border-box; }
+      body {
+        font-family: 'Segoe UI', Arial, sans-serif;
+        color: #1a1a1a;
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 24px;
+        line-height: 1.45;
+      }
+      header.form-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        border-bottom: 3px solid #00843d;
+        padding-bottom: 12px;
+        margin-bottom: 8px;
+      }
+      .brand { display: flex; align-items: center; gap: 12px; }
+      .brand-logo { height: 46px; width: auto; border-radius: 4px; }
+      .brand-name { font-weight: 700; color: #00843d; font-size: 15px; margin-left: 6px; }
+      /* legacy brand-mark kept for fallback but hidden when logo present */
+      .brand-mark { display: none; }
+      h1.form-title {
+        font-size: 22px; text-align: right; margin: 0; letter-spacing: 0.5px;
+      }
+      .agency-block {
+        font-size: 12px; font-weight: 600; margin-bottom: 18px;
+      }
+      .agency-block p { margin: 1px 0; }
+
+      fieldset.section {
+        border: 1px solid #444;
+        border-radius: 4px;
+        padding: 14px 18px 18px;
+        margin-bottom: 18px;
+      }
+      fieldset.section legend {
+        font-weight: 700;
+        text-decoration: underline;
+        padding: 0 6px;
+        font-size: 14px;
+      }
+      p.consent-text { font-size: 12.5px; text-align: justify; margin-top: 4px; }
+
+      .field-row { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 12px; }
+      .field { flex: 1 1 220px; min-width: 200px; }
+      .field.full { flex-basis: 100%; }
+      label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+      label .req { color: #c0143c; }
+      input[type="text"], input[type="email"], input[type="date"], input[type="tel"], textarea {
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid #1a1a1a;
+        padding: 4px 2px;
+        font-size: 14px;
+        background: transparent;
+      }
+      textarea { resize: vertical; min-height: 40px; }
+      .hint { font-size: 11px; color: #555; margin-top: 2px; }
+
+      .dob-row { display: flex; gap: 10px; }
+      .dob-row .dob-part { flex: 1; text-align: center; }
+      .dob-row .dob-part span { display: block; font-size: 11px; margin-top: 2px; }
+
+      .checkbox-group { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 6px; }
+      .checkbox-item { display: flex; align-items: center; gap: 6px; font-size: 13px; }
+      .checkbox-item input { width: 16px; height: 16px; }
+
+      .note-callout {
+        background: #f4f4f4;
+        border-left: 4px solid #00843d;
+        padding: 10px 14px;
+        font-size: 12px;
+        margin: 10px 0 16px;
+      }
+      .highlight-note {
+        background: #fce8ef;
+        font-weight: 600;
+        font-size: 12.5px;
+        padding: 6px 10px;
+        margin-bottom: 8px;
+      }
+
+      .radio-group { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
+      .radio-item { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+      .radio-item input { width: 16px; height: 16px; }
+      .radio-item.sub { margin-left: 24px; }
+
+      .page-break { border-top: 2px dashed #ccc; margin: 30px 0; padding-top: 4px; }
+      .footer-strip {
+        display: flex; justify-content: space-between;
+        font-size: 11px; color: #555; margin-top: 24px;
+        border-top: 1px solid #ccc; padding-top: 6px;
+      }
+      .submit-row { text-align: right; margin-top: 20px; }
+      button.submit-btn {
+        background: #00843d; color: #fff; border: none;
+        padding: 10px 26px; font-size: 14px; border-radius: 4px; cursor: pointer;
+      }
+
+  body
+    //- ============= PAGE 1 =============
+    header.form-header
+      .brand
+        img.brand-logo(src="/assets/logo.png" alt="Manitoba Families logo")
+        .brand-name Manitoba Families
+      h1.form-title CRIMINAL RISK ASSESSMENT REQUEST
+
+    .agency-block
+      p MANITOBA FAMILIES - CRIMINAL RISK ASSESSMENT UNIT
+      p Child Protection Branch
+      p 201 - 114 Garry Street
+      p Winnipeg, Manitoba R3C 4V5
+
+    form#criminalRiskAssessmentForm(method="POST" action="/submit")
+
+      //- ---- consent group (survey: consent) ----
+      fieldset.section
+        legend CONSENT FOR CRIMINAL RISK ASSESSMENT AND RELEASE OF INFORMATION
+        p.consent-text.
+          As a person who has, or may have, care, custody, control or charge of a child in
+          receipt of services under <em>The Child and Family Services Act</em>, I authorize the
+          Criminal Risk Assessment Unit of Manitoba Families' Child Protection Branch ("CRAU") to
+          conduct enquiries of the Winnipeg Police Service (WPS), the RCMP and other law
+          enforcement agencies necessary to assess the risk that I may endanger the life, health
+          or emotional wellbeing of a child. I understand that this information is requested by
+          (CFS Agency) for the purposes of, and in accordance with, s. 18.4(1.1) of
+          <em>The Child and Family Services Act</em>, and may include a criminal record, criminal
+          and Provincial Act convictions, orders or charges, other involvement/contact with law
+          enforcement (including non-conviction information) or other information. I authorize the
+          disclosure of said information to CRAU and an authorized Child and Family Services
+          Agency designate or designates. I also authorize the disclosure of the personal
+          identifying information set out below to CRAU, the WPS, RCMP and other law enforcement
+          agencies for the purpose of completing a Criminal Risk Assessment. I understand that the
+          results of this Criminal Risk Assessment are confidential, and may not be provided to
+          me, but may be disclosed in accordance with s.76 of the Child and Family Services Act.
+
+        .field-row
+          .field
+            label(for="consent_date") Date
+            input(type="date" id="consent_date" name="consent_date")
+          .field
+            label(for="signature_person") Signature of person being assessed
+            input(type="text" id="signature_person" name="signature_person")
+
+        .checkbox-group
+          .checkbox-item
+            input(type="checkbox" id="is_unconsented" name="is_unconsented" value="yes")
+            label(for="is_unconsented" style="margin:0;font-weight:400;") Unconsented
+          .field(style="flex:2;")
+            label(for="witness_name") Witness (if consenting)
+            input(type="text" id="witness_name" name="witness_name")
+
+      //- ---- identity group (survey: identity) ----
+      fieldset.section
+        legend PLEASE PRINT CLEARLY
+
+        .field-row
+          .field
+            label 1. First Name
+              span.req  *
+            input(type="text" name="first_name" required)
+          .field
+            label 2. Second Name
+            input(type="text" name="second_name")
+
+        .field-row
+          .field.full
+            label 3. Last Name
+              span.req  *
+            input(type="text" name="last_name" required)
+
+        .field-row
+          .field
+            label 4. Date of Birth
+              span.req  *
+            .dob-row
+              .dob-part
+                input(type="number" name="dob_day" min="1" max="31" placeholder="DD" required)
+                span Day
+              .dob-part
+                input(type="number" name="dob_month" min="1" max="12" placeholder="MM" required)
+                span Month
+              .dob-part
+                input(type="number" name="dob_year" min="1900" placeholder="YYYY" required)
+                span Year
+          .field
+            label 5. Sex
+              span.req  *
+            .radio-group(style="flex-direction:row;gap:20px;")
+              .radio-item
+                input(type="radio" id="sex_male" name="sex" value="male" required)
+                label(for="sex_male" style="margin:0;font-weight:400;") Male
+              .radio-item
+                input(type="radio" id="sex_female" name="sex" value="female")
+                label(for="sex_female" style="margin:0;font-weight:400;") Female
+
+        .field-row
+          .field
+            label 6. Other Last Names Used
+            input(type="text" name="other_last_names")
+          .field
+            label 7. Other First Names Used/Also Goes By
+            input(type="text" name="other_first_names")
+
+        .field-row
+          .field.full
+            label 8. Current Address (include postal code)
+              span.req  *
+            textarea(name="current_address" rows="2" required)
+
+        .field-row
+          .field
+            label 9. Current Ph#s
+              span.req  *
+            input(type="tel" name="current_phones" required)
+          .field
+            label 10. City/Province or Country of Birth
+            input(type="text" name="birth_place")
+
+      //- ---- identification group ----
+      fieldset.section
+        legend Identification Provided
+        .highlight-note.
+          *PLEASE NOTE: Subject's name must be identified with TWO PIECES OF IDENTIFICATION
+          (MB D/L &amp; photo ID is preferable):
+
+        .checkbox-group
+          .checkbox-item
+            input(type="checkbox" id="id_birth_cert" name="id_type_provided" value="birth_cert")
+            label(for="id_birth_cert" style="margin:0;font-weight:400;") Birth Certificate
+          .checkbox-item
+            input(type="checkbox" id="id_sin" name="id_type_provided" value="sin")
+            label(for="id_sin" style="margin:0;font-weight:400;") Social Insurance Card
+          .checkbox-item
+            input(type="checkbox" id="id_mb_health" name="id_type_provided" value="mb_health")
+            label(for="id_mb_health" style="margin:0;font-weight:400;") Manitoba Health Card
+          .checkbox-item
+            input(type="checkbox" id="id_treaty" name="id_type_provided" value="treaty")
+            label(for="id_treaty" style="margin:0;font-weight:400;") Treaty Card
+
+        .field-row
+          .checkbox-item(style="flex:1 1 100%;")
+            input(type="checkbox" id="id_other" name="id_type_provided" value="other")
+            label(for="id_other" style="margin:0;font-weight:400;") Other (specify ID):
+          .field.full
+            input(type="text" name="id_other_specify" placeholder="Specify other ID type")
+
+        .field-row
+          .checkbox-item(style="flex:1 1 100%;")
+            input(type="checkbox" id="id_mb_dl" name="id_type_provided" value="mb_dl")
+            label(for="id_mb_dl" style="margin:0;font-weight:400;") MB Driver's License with Photo - licence number (section 4d on licence)
+          .field.full
+            input(type="text" name="mb_dl_number" placeholder="Licence number")
+
+      .page-break
+
+      //- ============= PAGE 2 =============
+      header.form-header
+        .brand
+          img.brand-logo(src="/assets/logo.png" alt="Manitoba Families logo")
+          .brand-name Manitoba Families
+        h1.form-title CRIMINAL RISK ASSESSMENT REQUEST
+
+      fieldset.section(style="margin-top:10px;")
+        .field.full
+          label Name of Person Being Assessed
+          input(type="text" name="name_confirm" readonly value="")
+          p.hint *Must match information on page 1
+
+        .note-callout
+          strong IT IS IMPORTANT THAT THE CFS AGENCY DESIGNATE READS AND UNDERSTANDS THE FOLLOWING:
+          |  The identifying information supplied on page 1 will be researched through the
+          |  Canadian Police Information Centre (CPIC) and Winnipeg Police Service Records
+          |  Management System (NICHE). The research will NOT include a vulnerable sector search
+          |  in respect of pardons, which information may impact the results of a
+          |  risk assessment. Criminal Convictions are strictly confidential and cannot be shared
+          |  without written authorization of the person involved. Personal Information is
+          |  governed under Section 8 of the Privacy Act (Federal Statute). Record information is
+          |  based on NAME AND DATE OF BIRTH SEARCH ONLY and does not necessarily indicate subject
+          |  involvement. Verification can only be provided through the submission of fingerprints
+          |  to the local law enforcement agency for the area in which the person being assessed
+          |  resides. In the case of dispute regarding the identity of the person being assessed,
+          |  that person is advised to attend any RCMP Detachment; Winnipeg Police Service, 245
+          |  Smith Street, Winnipeg, Manitoba; Brandon Police Service, 1340 10th Street, Brandon,
+          |  Manitoba; or local Police Agency. A fee for service is required.
+
+        p
+          strong NOTE - SECTIONS MARKED WITH AN ASTERISK (*) ARE REQUIRED
+
+        .field-row
+          .field.full
+            label *Name of Agency Submitting Request
+            input(type="text" name="agency_name" required)
+
+        .field-row
+          .field.full
+            label *Reason for Risk Assessment
+            .radio-group
+              .radio-item
+                input(type="radio" id="reason_child" name="reason_for_assessment" value="child_protection" required)
+                label(for="reason_child" style="margin:0;font-weight:400;") With or Without Consent: Child Protection Concerns
+              .radio-item.sub
+                input(type="radio" id="reason_safety" name="reason_for_assessment" value="place_of_safety")
+                label(for="reason_safety" style="margin:0;font-weight:400;") Must have consent: Place of Safety
+              .radio-item.sub
+                input(type="radio" id="reason_kinship" name="reason_for_assessment" value="kinship_care")
+                label(for="reason_kinship" style="margin:0;font-weight:400;") Kinship or Customary Care Agreement
+
+        .field-row
+          .field.full
+            label *Assigned Worker
+            input(type="text" name="assigned_worker" required)
+
+        .field-row
+          .field.full
+            label Date of Last Criminal Risk Assessment (if known)
+            input(type="date" name="date_last_assessment")
+
+        .field-row
+          .field.full
+            label *Submitting Designate
+            input(type="text" name="submitting_designate" required)
+
+        .field-row
+          .field
+            label *Designate Ph#
+            input(type="tel" name="designate_phone" required)
+          .field
+            label *Designate Email#
+            input(type="email" name="designate_email" required)
+
+        .field-row
+          .field
+            label Designate Fax#
+            input(type="tel" name="designate_fax")
+          .field
+            label *Request Date
+            input(type="date" name="request_date" required)
+
+        p(style="font-size:12px;font-weight:600;margin-top:16px;").
+          NOTE: The assessment completed by the Criminal Risk Assessment Unit of the Department of
+          Families Child Protection Branch does not replace a criminal records check.
+
+      .submit-row
+        button.submit-btn(type="submit") Submit Request
+
+    .footer-strip
+      span Criminal Risk Assessment Request &nbsp;&nbsp; Revision date: 2025-01-10
+      span Page 1 of 2

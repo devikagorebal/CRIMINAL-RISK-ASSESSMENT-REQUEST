@@ -1,0 +1,135 @@
+* { box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color: #1a1a1a;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px;
+  line-height: 1.45;
+}
+header.form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border-bottom: 3px solid #00843d;
+  padding-bottom: 12px;
+  margin-bottom: 8px;
+}
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand-logo { height: 46px; width: auto; border-radius: 4px; }
+.brand-name { font-weight: 700; color: #00843d; font-size: 15px; margin-left: 6px; }
+/* legacy brand-mark kept for fallback but hidden when logo present */
+.brand-mark { display: none; }
+h1.form-title {
+  font-size: 22px; text-align: right; margin: 0; letter-spacing: 0.5px;
+}
+.agency-block {
+  font-size: 12px; font-weight: 600; margin-bottom: 18px;
+}
+.agency-block p { margin: 1px 0; }
+fieldset.section {
+  border: 1px solid #444;
+  border-radius: 4px;
+  padding: 14px 18px 18px;
+  margin-bottom: 18px;
+}
+fieldset.section legend {
+  font-weight: 700;
+  text-decoration: underline;
+  padding: 0 6px;
+  font-size: 14px;
+}
+p.consent-text { font-size: 12.5px; text-align: justify; margin-top: 4px; }
+.field-row { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 12px; }
+.field { flex: 1 1 220px; min-width: 200px; }
+.field.full { flex-basis: 100%; }
+label { display: block; font-weight: 600; font-size: 13px; margin-bottom: 4px; }
+label .req { color: #c0143c; }
+input[type="text"], input[type="email"], input[type="date"], input[type="tel"], textarea {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #1a1a1a;
+  padding: 4px 2px;
+  font-size: 14px;
+  background: transparent;
+}
+textarea { resize: vertical; min-height: 40px; }
+.hint { font-size: 11px; color: #555; margin-top: 2px; }
+.dob-row { display: flex; gap: 10px; }
+.dob-row .dob-part { flex: 1; text-align: center; }
+.dob-row .dob-part span { display: block; font-size: 11px; margin-top: 2px; }
+.checkbox-group { display: flex; flex-wrap: wrap; gap: 18px; margin-top: 6px; }
+.checkbox-item { display: flex; align-items: center; gap: 6px; font-size: 13px; }
+.checkbox-item input { width: 16px; height: 16px; }
+.note-callout {
+  background: #f4f4f4;
+  border-left: 4px solid #00843d;
+  padding: 10px 14px;
+  font-size: 12px;
+  margin: 10px 0 16px;
+}
+.highlight-note {
+  background: #fce8ef;
+  font-weight: 600;
+  font-size: 12.5px;
+  padding: 6px 10px;
+  margin-bottom: 8px;
+}
+.radio-group { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
+.radio-item { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+.radio-item input { width: 16px; height: 16px; }
+.radio-item.sub { margin-left: 24px; }
+.page-break { border-top: 2px dashed #ccc; margin: 30px 0; padding-top: 4px; }
+.footer-strip {
+  display: flex; justify-content: space-between;
+  font-size: 11px; color: #555; margin-top: 24px;
+  border-top: 1px solid #ccc; padding-top: 6px;
+}
+.submit-row { text-align: right; margin-top: 20px; }
+button.submit-btn {
+  background: #00843d; color: #fff; border: none;
+  padding: 10px 26px; font-size: 14px; border-radius: 4px; cursor: pointer;
+}
+
+.summary-card {
+  background: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 20px;
+}
+.summary-card dl { margin: 0; }
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.logo svg {
+  height: 56px;
+  width: auto;
+}
+.meta {
+  margin-top: 8px;
+  color: #555;
+}
+.summary-card dt {
+  font-weight: 700;
+  margin-top: 14px;
+}
+.summary-card dd {
+  margin: 4px 0 0 0;
+  white-space: pre-wrap;
+}
+.button-link {
+  display: inline-block;
+  margin-top: 24px;
+  padding: 10px 18px;
+  background: #00843d;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+}
+.empty-state {
+  color: #555;
+  font-style: italic;
+}
