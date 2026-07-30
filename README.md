@@ -5,9 +5,9 @@
 For this project, I took the **Manitoba Families "Criminal Risk Assessment Request"** paper form (a real, in-production government form used by the Criminal Risk Assessment Unit under Child Protection Branch) and digitized it in two stages:
 
 1. Built a fully working **ODK XLSForm** from scratch, following the official [ODK XLSForm specification](https://docs.getodk.org/xlsform/), so this form could be deployed on ODK Collect / KoboToolbox for field data collection.
-2. Used an AI reasoning model (I chose **Claude, by Anthropic** — details on why below) to generate a matching **web version of the same form**, using both the original PDF and my finished XLSForm as inputs.
+2. Used an AI reasoning model (I chose **Claude ) to generate a matching **web version of the same form**, using both the original PDF and my finished XLSForm as inputs.
 
-I originally built the web version as a Pug + Express app, but decided to simplify it down to a **plain static HTML/CSS/JS site** — no Node, no server, no build step. Anyone can just double-click `index.html` and it works. That change is part of the prompt history below.
+I originally built the web version as a Pug + Express app, but decided to simplify it down to a **plain static HTML/CSS/JS site** — no Node, no server, no build step. Anyone can just double-click `index.html` and it works. 
 
 The end result is two parallel, schema-consistent versions of the same government form — one for mobile/offline data collection (ODK), one for the browser — built off a single source of truth.
 
@@ -45,13 +45,6 @@ Key logic built in:
 - A `constraint` enforces at least two pieces of ID selected.
 
 **I didn't just eyeball this for correctness** — I ran it through `pyxform` (the same conversion engine that powers the official ODK online converter) to confirm it compiles with zero errors or warnings:
-
-```bash
-python3 -m pyxform.xls2xform Criminal_Risk_Assessment_Request.xlsx Criminal_Risk_Assessment_Request_compiled.xml
-Conversion complete!
-```
-
-You can also just drag the `.xlsx` straight into **https://getodk.org/xlsform/** to see it convert live.
 
 ---
 
@@ -137,24 +130,17 @@ I needed a model that could do more than OCR a PDF and copy rows into a spreadsh
 ## Repository Structure
 
 ```
-.
+Main/
 ├── README.md
-├── index.html                                   # form markup
-├── styles.css                                    # visual styling
-├── script.js                                     # client-side submit + confirmation logic
-├── submitted.html                                # confirmation page
-├── docs/
-│   └── Criminal_Risk_Assessment_Request.pdf      # source PDF
-└── xlsform/
-    ├── Criminal_Risk_Assessment_Request.xlsx            # the XLSForm
-    └── Criminal_Risk_Assessment_Request_compiled.xml     # pyxform output (proof of validity)
+├── index.html
+├── styles.css
+├── script.js
+├── submitted.html
+├── assets/logo.png
+└── pug/submitted.pug
+       /template.pug
 ```
 
-## Running It Locally
-
-No install, no server needed. Just open `index.html` in a browser.
-
-To view the XLSForm without running anything, drag `xlsform/Criminal_Risk_Assessment_Request.xlsx` into **https://getodk.org/xlsform/**.
 
 ## Video
 
