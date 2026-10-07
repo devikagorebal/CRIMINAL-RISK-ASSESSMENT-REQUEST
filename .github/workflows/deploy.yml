@@ -26,10 +26,15 @@ jobs:
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
 
+      - name: Prepare website
+        run: |
+          mkdir -p _site
+          cp -r Main/* _site/
+
       - name: Upload website
         uses: actions/upload-pages-artifact@v4
         with:
-          path: './Main'
+          path: './_site'
 
       - name: Deploy to GitHub Pages
         id: deployment
